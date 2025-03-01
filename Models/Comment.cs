@@ -14,7 +14,7 @@
         // Navigation properties (optional, if you want to include them)
         public Post Post { get; set; }
         public User User { get; set; }
-        //public ICollection<CommentLike> Likes { get; set; }
+        public ICollection<CommentLike> Likes { get; set; }
         public Comment ParentComment { get; set; } // पैरेंट कमेंट के लिए (ऑप्शनल)
         public ICollection<Comment> Replies { get; set; } // रिप्लाईज़ के लिए (ऑप्शनल)
     }
