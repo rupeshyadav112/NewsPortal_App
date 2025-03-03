@@ -421,35 +421,35 @@
         </section>
 
         <!-- Recent Posts Section -->
-        <section class="recent-posts">
-            <div class="container">
-                <h2 style="text-align: left;">Recent Posts</h2>
-                <div class="recent-posts-grid">
-                    @foreach (var post in Model)
-                    {
-                        <article class="post-card">
-                            <img src="@post.ImagePath" alt="@post.Title" />
-                            <div class="post-content">
-                                <h3 class="post-title">@post.Title</h3>
-                                <p class="post-category">@post.Category</p>
-                            </div>
-                            <div class="post-footer">
-                                <a href="/ReadArticles/@post.PostID" class="button button-secondary button-full">Read Article</a>
-                            </div>
-                        </article>
-                    }
-                </div>
+        @* <section class="recent-posts"> *@
+        @*     <div class="container"> *@
+        @*         <h2 style="text-align: left;">Recent Posts</h2> *@
+        @*         <div class="recent-posts-grid"> *@
+        @*             @foreach (var post in Model) *@
+        @*             { *@
+        @*                 <article class="post-card"> *@
+        @*                     <img src="@post.ImagePath" alt="@post.Title" /> *@
+        @*                     <div class="post-content"> *@
+        @*                         <h3 class="post-title">@post.Title</h3> *@
+        @*                         <p class="post-category">@post.Category</p> *@
+        @*                     </div> *@
+        @*                     <div class="post-footer"> *@
+        @*                         <a href="/ReadArticles/@post.PostID" class="button button-secondary button-full">Read Article</a> *@
+        @*                     </div> *@
+        @*                 </article> *@
+        @*             } *@
+        @*         </div> *@
 
-                <div class="view-more-container">
-                    <a asp-controller="NewsArticles" asp-action="Index" class="view-more-btn">
-                        View More
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="12" y1="5" x2="12" y2="19"></line>
-                            <polyline points="19 12 12 19 5 12"></polyline>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </section>
+        @*         <div class="view-more-container"> *@
+        @*             <a asp-controller="NewsArticles" asp-action="Index" class="view-more-btn"> *@
+        @*                 View More *@
+        @*                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> *@
+        @*                     <line x1="12" y1="5" x2="12" y2="19"></line> *@
+        @*                     <polyline points="19 12 12 19 5 12"></polyline> *@
+        @*                 </svg> *@
+        @*             </a> *@
+        @*         </div> *@
+        @*     </div> *@
+        @* </section> *@
     </main>
 </body>
