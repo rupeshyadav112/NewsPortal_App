@@ -1,0 +1,92 @@
+﻿@model NewsPortal_App.Models.SignInViewModel
+@{
+    ViewData["Title"] = "Sign In";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/SignIn.css" />
+
+<div class="signup-container">
+    <div class="form-header">
+        <h1>DailyNeuzz</h1><br />
+        <h2>Sign In</h2>
+        <p class="subtitle">Welcome to Morning Greetings, Please provide your details</p>
+    </div>
+
+    <div class="signup-box">
+        <!-- Success Message -->
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success" role="alert">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+
+        <!-- Error Message -->
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                @TempData["ErrorMessage"]
+            </div>
+        }
+
+        <form asp-action="SignIn" method="post">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" placeholder="name@example.com" autocomplete="email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" type="password" class="form-control" placeholder="Password" autocomplete="current-password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="signup-btn">Sign In</button>
+                <a asp-controller="Account" asp-action="GoogleLogin" class="google-btn">Continue with Google</a>
+                <p class="login-link">Don't have an account? <a asp-action="SignUp">Sign Up</a></p>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    .alert {
+        padding: 15px;
+        margin-bottom: 20px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+    }
+
+    .alert-success {
+        color: #155724;
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+    }
+
+    .alert-danger {
+        color: #721c24;
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+    }
+
+    .google-btn {
+        background-color: green;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+        display: inline-block;
+        text-decoration: none;
+    }
+
+        .google-btn:hover {
+            background-color: #357abd;
+        }
+</style>
