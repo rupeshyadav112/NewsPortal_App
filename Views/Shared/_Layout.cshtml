@@ -3,42 +3,163 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - NewsPortal_App</title>
+    <title>@ViewData["Title"] - NewsPortalApp</title>
     <script type="importmap"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    @* <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" /> *@
-    <link rel="stylesheet" href="~/NewsPortal_App.styles.css" asp-append-version="true" />
+    <style>
+        .profile-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            background-color: white;
+            border: 1px solid #ccc;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+            border-radius: 5px;
+            padding: 10px;
+            width: 200px;
+            z-index: 1;
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 8px;
+            color: black;
+            text-decoration: none;
+        }
+
+            .dropdown-item:hover {
+                background-color: #f1f1f1;
+            }
+
+        .profile-image {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        h4 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .user-info p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+    </style>
+
+    <script>
+        function toggleDropdown() {
+            var dropdown = document.getElementById('dropdownMenu');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
 </head>
 <body>
+    <!-- Header -->
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">NewsPortal_App</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+        <div class="header-content">
+            <div class="header-left">
+                <h1>
+                    <span style="color: #64748b;">Daily</span>Neuzz
+                </h1><br />
+            </div>
+
+            <div class="header-center">
+                <div class="search-box">
+                    <input type="text" id="searchInput" class="search-input" placeholder="Search..." onkeyup="searchFunction()" />
+                    <svg xmlns="http://www.w3.org/2000/svg" class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
                 </div>
             </div>
-        </nav>
+
+            <div class="header-right">
+                <nav class="nav-links">
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    <a class="nav-link" asp-area="" asp-controller="About" asp-action="Index">About</a>
+                    <a class="nav-link" asp-area="" asp-controller="NewsArticles" asp-action="Index">News Articles</a>
+                </nav>
+
+                @if (Context.Session.GetString("Username") != null)
+                {
+                    <!-- User is logged in -->
+                    <div class="profile-dropdown">
+                        <div class="profile-icon" onclick="toggleDropdown()">
+                            <img src="@Url.Content(Context.Session.GetString("UserProfileImage") ?? "/images/Avatar.png")" class="profile-image" alt="Profile Picture" />
+                        </div>
+                        <div class="dropdown-menu" id="dropdownMenu">
+                            <h4>My Account</h4>
+                            <hr />
+                            <div class="user-info">
+                                <p>@Context.Session.GetString("Username")</p>
+                                <p>@Context.Session.GetString("Email")</p>
+                            </div>
+                            <a asp-controller="Profile" asp-action="Index" class="dropdown-item">Profile</a>
+                            <a asp-controller="Account" asp-action="Logout" method="post" class="dropdown-item">Logout</a>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <a class="login-btn" asp-controller="Account" asp-action="SignIn">Login</a>
+                }
+            </div>
+        </div>
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
+
         </main>
     </div>
+
+    <!-- Footer (Conditional) -->
+    @if (ViewData["ShowFooter"] as bool? ?? true)
+    {
+        <footer>
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h3>About Us</h3>
+                        <p>We are committed to delivering the best service and information. Our mission is to enrich lives through exceptional digital experiences.</p>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Quick Links</h3>
+                        <ul class="footer-links">
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/about">About Us</a></li>
+                            <li><a href="/news">News Articles</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Contact Us</h3>
+                        <address>
+                            1234 Street Name, City, Country<br>
+                            Email: ryadav943@gmail.com<br>
+                            &emsp;&emsp;amahato992@rku.ac.in<br>
+                            &emsp;&emsp;kyadav847@rku.ac.in<br>
+                            Phone: +91234567890
+                        </address>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    }
+
+    <!-- स्क्रिप्ट्स -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @RenderSection("Scripts", required: false)
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    <partial name="_ValidationScriptsPartial" /> <!-- वैलिडेशन स्क्रिप्ट्स -->
 </body>
 </html>
