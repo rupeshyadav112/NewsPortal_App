@@ -52,6 +52,30 @@
             margin: 5px 0;
             font-size: 14px;
         }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .nav-link {
+            color: rgb(75, 85, 99); /* डिफॉल्ट रंग */
+            text-decoration: none; /* डिफॉल्ट में अंडरलाइन नहीं */
+            font-weight: 500;
+            transition: color 0.2s, text-decoration 0.2s; /* रंग और अंडरलाइन के लिए स्मूद ट्रांज़िशन */
+        }
+
+            .nav-link:hover {
+                color: rgb(31, 41, 55); /* होवर पर गहरा रंग */
+                text-decoration: underline; /* होवर पर अंडरलाइन */
+            }
+
+            .nav-link.active {
+                color: rgb(31, 41, 55);
+                font-weight: 600;
+                text-decoration: none; /* एक्टिव लिंक पर अंडरलाइन नहीं चाहिए तो ये रखें */
+            }
     </style>
 
     <script>
